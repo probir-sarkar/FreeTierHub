@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
 
+import { CATEGORY_TYPES } from "@/utils/constants";
+
 export interface CategoryDocument extends mongoose.Document {
   name: string;
   description: string;
+  slug: string;
   softwares: mongoose.Types.ObjectId[];
 }
 
@@ -16,6 +19,11 @@ const categorySchema = new mongoose.Schema<CategoryDocument>({
   description: {
     type: String,
     required: true,
+  },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
   },
   softwares: [
     {
@@ -32,6 +40,7 @@ export interface SoftwareDocument extends mongoose.Document {
   categories: mongoose.Types.ObjectId[];
   github: string;
   website: string;
+  type: string;
 }
 const softwareSchema = new mongoose.Schema<SoftwareDocument>({
   name: {
@@ -52,6 +61,11 @@ const softwareSchema = new mongoose.Schema<SoftwareDocument>({
   },
   website: {
     type: String,
+  },
+  type: {
+    type: String,
+    enum: CATEGORY_TYPES,
+    required: true,
   },
 
   categories: [
