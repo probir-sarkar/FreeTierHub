@@ -1,5 +1,5 @@
 import z from "zod";
-import { CATEGORY_TYPES } from "@/utils/constants";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const addCategorySchema = z.object({
@@ -11,8 +11,8 @@ export const addCategorySchema = z.object({
     .max(255)
     .regex(/^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/, {
       message: "Slug must be a valid URL slug",
-    }),
-  type: z.enum(CATEGORY_TYPES),
+    })
+    .toLowerCase(),
 });
 
 export const resolver = zodResolver(addCategorySchema);

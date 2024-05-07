@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 import { CATEGORY_TYPES } from "@/utils/constants";
 
-export interface CategoryDocument extends mongoose.Document {
+export interface CategoryDocument {
+  _id: string;
   name: string;
   description: string;
   slug: string;
@@ -33,7 +34,8 @@ const categorySchema = new mongoose.Schema<CategoryDocument>({
   ],
 });
 
-export interface SoftwareDocument extends mongoose.Document {
+export interface SoftwareDocument {
+  _id: string;
   name: string;
   description: string;
   slug: string;
