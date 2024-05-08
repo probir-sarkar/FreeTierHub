@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { CATEGORY_TYPES } from "@/utils/constants";
+import { CATEGORY_TYPES, CategoryType } from "@/utils/constants";
 
 export interface CategoryDocument {
   _id: string;
@@ -15,23 +15,23 @@ const categorySchema = new mongoose.Schema<CategoryDocument>({
     type: mongoose.Schema.Types.String,
     required: true,
     unique: true,
-    trim: true,
+    trim: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   slug: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   softwares: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Software",
-    },
-  ],
+      ref: "Software"
+    }
+  ]
 });
 
 export interface SoftwareDocument {
@@ -42,44 +42,42 @@ export interface SoftwareDocument {
   categories: mongoose.Types.ObjectId[];
   github: string;
   website: string;
-  type: string;
+  type: CategoryType;
 }
 const softwareSchema = new mongoose.Schema<SoftwareDocument>({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   slug: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   github: {
-    type: String,
+    type: String
   },
   website: {
-    type: String,
+    type: String
   },
   type: {
     type: String,
     enum: CATEGORY_TYPES,
-    required: true,
+    required: true
   },
 
   categories: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
-    },
-  ],
+      ref: "Category"
+    }
+  ]
 });
 
-export const Software: mongoose.Model<SoftwareDocument> =
-  mongoose.models.Software || mongoose.model("Software", softwareSchema);
+export const Software: mongoose.Model<SoftwareDocument> = mongoose.models.Software || mongoose.model("Software", softwareSchema);
 
-export const Category: mongoose.Model<CategoryDocument> =
-  mongoose.models.Category || mongoose.model("Category", categorySchema);
+export const Category: mongoose.Model<CategoryDocument> = mongoose.models.Category || mongoose.model("Category", categorySchema);

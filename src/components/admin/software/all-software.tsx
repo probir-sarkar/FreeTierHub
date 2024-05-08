@@ -1,3 +1,4 @@
+"use client";
 import { FC } from "react";
 import {
   Table,
@@ -11,14 +12,24 @@ import {
 } from "@/components/ui/table";
 import { SoftwareDocument } from "@/models/Soft";
 
+import AddSoftwareButton from "./AddSofwareButton";
+import { Button } from "@/components/ui/button";
+import { Settings, TrashIcon } from "lucide-react";
+import { useSoftwareStore } from "./software.state";
+
 interface InputProps {
   softwares: SoftwareDocument[];
 }
 
-const AllSoftware: FC<InputProps> = async ({ softwares }) => {
+const AllSoftware: FC<InputProps> = ({ softwares }) => {
+  const { setSheetOpen, setEditingSoftware } = useSoftwareStore();
   if (!softwares || softwares.length < 1) return null;
   return (
-    <div>
+    <div className="my-10">
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold">Softwares</h1>
+        <AddSoftwareButton />
+      </div>
       <Table>
         <TableCaption>All Softwares</TableCaption>
         <TableHeader>
@@ -40,6 +51,24 @@ const AllSoftware: FC<InputProps> = async ({ softwares }) => {
               <TableCell>{software.github}</TableCell>
               <TableCell>{software.website}</TableCell>
               <TableCell>{software.type}</TableCell>
+              <TableCell className="flex gap-1.5">
+                <Button
+                  className="h-8 w-8"
+                  size="icon"
+                  variant="outline"
+                  onClick={() => {
+                    setEditingSoftware(software);
+                    setSheetOpen(true);
+                  }}
+                >
+                  <Settings className="h-4 w-4" />
+                  <span className="sr-only">Edit</span>
+                </Button>
+                <Button className="h-8 w-8" size="icon" variant="outline">
+                  <TrashIcon className="h-4 w-4" />
+                  <span className="sr-only">Delete</span>
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
