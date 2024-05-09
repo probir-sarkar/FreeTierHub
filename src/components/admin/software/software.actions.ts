@@ -21,11 +21,14 @@ export const addSoftware = async (data: SoftwareFormInput): Promise<boolean> => 
   try {
     const { categories, ...newData } = data;
     const categoriesIds = categories.map((category) => category.value);
+    const features = newData.features.filter((feature) => feature.value).map((feature) => feature.value);
     await dbConnect();
-    const software = await Software.create({ ...newData, categories: categoriesIds });
+    const software = await Software.create({ ...newData, categories: categoriesIds, features });
     revalidatePath("/admin/softwares");
     return !!software;
   } catch (e) {
+    console.log(e);
+
     return false;
   }
 };
@@ -34,8 +37,9 @@ export const updateSoftware = async (data: SoftwareFormInput, id: string) => {
   try {
     const { categories, ...newData } = data;
     const categoriesIds = categories.map((category) => category.value);
+    const features = newData.features.filter((feature) => feature.value).map((feature) => feature.value);
     await dbConnect();
-    const software = await Software.findByIdAndUpdate(id, { ...newData, categories: categoriesIds });
+    const software = await Software.findByIdAndUpdate(id, { ...newData, categories: categoriesIds, features });
     revalidatePath("/admin/softwares");
     return !!software;
   } catch (e) {

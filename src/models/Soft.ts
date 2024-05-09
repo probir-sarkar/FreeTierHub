@@ -37,6 +37,8 @@ const categorySchema = new mongoose.Schema<CategoryDocument>({
 export interface SoftwareDocument {
   _id: string;
   name: string;
+  subtitle: string;
+  features: string[];
   description: string;
   slug: string;
   categories: mongoose.Types.ObjectId[];
@@ -44,6 +46,8 @@ export interface SoftwareDocument {
   website: string;
   type: CategoryType;
   payModel: FreeModelType;
+  creditCardRequired: boolean;
+  status: "draft" | "published" | "archived" | "deleted" | "pending";
 }
 const softwareSchema = new mongoose.Schema<SoftwareDocument>({
   name: {
@@ -54,6 +58,14 @@ const softwareSchema = new mongoose.Schema<SoftwareDocument>({
     type: String,
     required: true,
     unique: true
+  },
+  subtitle: {
+    type: String,
+    required: true
+  },
+  features: {
+    type: [String],
+    required: false
   },
   description: {
     type: String,
@@ -75,13 +87,22 @@ const softwareSchema = new mongoose.Schema<SoftwareDocument>({
     enum: FREE_MODELS_TYPES,
     required: false
   },
+  creditCardRequired: {
+    type: Boolean,
+    required: false
+  },
 
   categories: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category"
     }
-  ]
+  ],
+  status: {
+    type: String,
+    enum: ["draft", "published", "archived", "deleted", "pending"],
+    default: "published"
+  }
 });
 
 export const Software: mongoose.Model<SoftwareDocument> = mongoose.models.Software || mongoose.model("Software", softwareSchema);
