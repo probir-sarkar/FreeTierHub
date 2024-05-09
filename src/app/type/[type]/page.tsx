@@ -1,6 +1,7 @@
 import { Software } from "@/models/Soft";
 import { categotySchema } from "@/utils/constants";
 import { allSoftwaresByType } from "../type.action";
+import Link from "next/link";
 
 const TypePage = async ({ params }: { params: { type: string } }) => {
   const { type } = params;
@@ -12,7 +13,9 @@ const TypePage = async ({ params }: { params: { type: string } }) => {
       <h1>{type}</h1>
       <ul>
         {allSoftwares.map((software) => (
-          <li key={software._id}>{software.name}</li>
+          <li key={software._id}>
+            <Link href={`/${software.slug}`}>{software.name}</Link>
+          </li>
         ))}
       </ul>
     </div>

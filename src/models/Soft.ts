@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { CATEGORY_TYPES, CategoryType } from "@/utils/constants";
+import { CATEGORY_TYPES, CategoryType, FreeModelType, FREE_MODELS_TYPES } from "@/utils/constants";
 
 export interface CategoryDocument {
   _id: string;
@@ -43,6 +43,7 @@ export interface SoftwareDocument {
   github: string;
   website: string;
   type: CategoryType;
+  payModel: FreeModelType;
 }
 const softwareSchema = new mongoose.Schema<SoftwareDocument>({
   name: {
@@ -68,6 +69,11 @@ const softwareSchema = new mongoose.Schema<SoftwareDocument>({
     type: String,
     enum: CATEGORY_TYPES,
     required: true
+  },
+  payModel: {
+    type: String,
+    enum: FREE_MODELS_TYPES,
+    required: false
   },
 
   categories: [

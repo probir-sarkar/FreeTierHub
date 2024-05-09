@@ -1,3 +1,4 @@
+import { RoleType, ROLE_TYPES } from "@/utils/constants";
 import mongoose from "mongoose";
 
 interface User {
@@ -5,6 +6,7 @@ interface User {
   githubId: string;
   avatarUrl?: string;
   name?: string;
+  role?: RoleType;
 }
 
 const UserSchema = new mongoose.Schema<User>({
@@ -17,7 +19,13 @@ const UserSchema = new mongoose.Schema<User>({
     required: true
   },
   avatarUrl: String,
-  name: String
+  name: String,
+  role: {
+    type: String,
+    enum: [...ROLE_TYPES],
+    default: "user",
+    required: false
+  }
 });
 
 export default mongoose.models.User || mongoose.model<User>("User", UserSchema);

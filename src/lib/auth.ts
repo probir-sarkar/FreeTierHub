@@ -5,6 +5,7 @@ import type { Session, User } from "lucia";
 import { MongodbAdapter } from "@lucia-auth/adapter-mongodb";
 import { GitHub } from "arctic";
 import mongoose from "mongoose";
+import dbConnect from "./dbConnect";
 export const adapter = new MongodbAdapter(mongoose.connection.collection("sessions"), mongoose.connection.collection("users"));
 
 export const lucia = new Lucia(adapter, {
@@ -22,6 +23,7 @@ export const lucia = new Lucia(adapter, {
 });
 
 export const validateRequest = cache(async (): Promise<{ user: User; session: Session } | { user: null; session: null }> => {
+  await dbConnect();
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
   if (!sessionId) {
     return {
