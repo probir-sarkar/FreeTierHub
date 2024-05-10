@@ -1,44 +1,45 @@
 "use server";
-import { CategoryDocument, Software, ParsedSoftware } from "@/models/Soft";
+import { Software, ParsedSoftware } from "@/models/Soft";
+import { TagDocument } from "@/models/Tag";
+import { CategoryDocument } from "@/models/Category";
+
 import dbConnect from "@/lib/dbConnect";
 
-export interface SoftwareWithCategorized extends Omit<ParsedSoftware, "categories"> {
-  categories: CategoryDocument[];
+export interface SoftwareWithCategorized extends Omit<ParsedSoftware, "tags" | "category"> {
+  category: CategoryDocument;
+  tags: TagDocument[];
 }
 
 export async function softwareBySlug(slug: string) {
   try {
     await dbConnect();
-    const software = await Software.findOne({ slug }).populate("categories");
+    const software = await Software.findOne({ slug }).populate("tags").populate("category");
     if (!software) {
       throw new Error("Software not found");
     }
     const parseData = JSON.parse(JSON.stringify(software)) as SoftwareWithCategorized;
-    const categoryIds = software.categories.map((cat) => cat._id);
+    console.log(parseData);
 
-    // const relatedSoftwares = await Software.find({
-    //   categories: { $in: categoryIds },
-    //   _id: { $ne: software._id }
-    // }).populate("categories");
+    const tagIds = software.tags.map((tag) => tag._id);
 
     const relatedSoftwares = await Software.aggregate([
       {
         $match: {
-          categories: { $in: categoryIds },
+          tags: { $in: tagIds },
           _id: { $ne: software._id }
         }
       },
       {
         $addFields: {
-          matchedCategories: {
+          matchedTags: {
             $size: {
-              $setIntersection: ["$categories", categoryIds]
+              $setIntersection: ["$tags", tagIds]
             }
           }
         }
       },
       {
-        $sort: { matchedCategories: -1 }
+        $sort: { matchedTags: -1 }
       }
     ]);
     console.log(relatedSoftwares);

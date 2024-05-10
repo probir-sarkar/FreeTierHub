@@ -71,19 +71,20 @@ const SoftwareDetails = async ({ params }: { params: { software: string } }) => 
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Tags</h2>
             <div className="flex flex-wrap gap-2">
-              {softwareDetails.categories.map((category) => (
-                <Link key={category._id} href={`/category/${category.slug}`}>
-                  <div className="bg-gray-100 px-3 py-1 rounded-full text-sm dark:bg-gray-800 dark:text-gray-50">{category.name}</div>
+              <Link href={`/category/${softwareDetails.category.slug}`}>
+                <div className="bg-gray-100 px-3 py-1 rounded-full text-sm dark:bg-gray-800 dark:text-gray-50">{softwareDetails.category.name}</div>
+              </Link>
+              {softwareDetails.tags.map((tag) => (
+                <Link key={tag._id} href={`/tag/${tag.slug}`}>
+                  <div className="bg-gray-100 px-3 py-1 rounded-full text-sm dark:bg-gray-800 dark:text-gray-50">{tag.name}</div>
                 </Link>
               ))}
             </div>
           </div>
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Pricing</h2>
-            <div className="bg-gray-100 p-4 rounded-lg dark:bg-gray-800">
-              <p className="text-4xl font-bold">$99</p>
-              <p className="text-gray-500 dark:text-gray-400">per month</p>
-              <Button className="mt-4">Get Started</Button>
+            <div className="flex flex-wrap gap-2">
+              <p>Pricing Model: {softwareDetails.payModel} </p>
             </div>
           </div>
         </div>
