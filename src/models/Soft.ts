@@ -1,50 +1,18 @@
 import mongoose from "mongoose";
 
-import { CATEGORY_TYPES, CategoryType, FreeModelType, FREE_MODELS_TYPES } from "@/utils/constants";
-
-export interface CategoryDocument {
-  _id: string;
-  name: string;
-  description: string;
-  slug: string;
-  softwares: mongoose.Types.ObjectId[];
-}
-
-const categorySchema = new mongoose.Schema<CategoryDocument>({
-  name: {
-    type: mongoose.Schema.Types.String,
-    required: true,
-    unique: true,
-    trim: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  softwares: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Software"
-    }
-  ]
-});
+import { FreeModelType, FREE_MODELS_TYPES } from "@/utils/constants";
 
 export interface SoftwareDocument {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
   name: string;
   subtitle: string;
   features: string[];
   description: string;
   slug: string;
-  categories: mongoose.Types.ObjectId[];
+  tags: mongoose.Types.ObjectId[];
   github: string;
   website: string;
-  type: CategoryType;
+  category: mongoose.Types.ObjectId;
   payModel: FreeModelType;
   creditCardRequired: boolean;
   status: "draft" | "published" | "archived" | "deleted" | "pending";
@@ -77,11 +45,7 @@ const softwareSchema = new mongoose.Schema<SoftwareDocument>({
   website: {
     type: String
   },
-  type: {
-    type: String,
-    enum: CATEGORY_TYPES,
-    required: true
-  },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
   payModel: {
     type: String,
     enum: FREE_MODELS_TYPES,
@@ -92,12 +56,7 @@ const softwareSchema = new mongoose.Schema<SoftwareDocument>({
     required: false
   },
 
-  categories: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category"
-    }
-  ],
+  tags: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tag" }],
   status: {
     type: String,
     enum: ["draft", "published", "archived", "deleted", "pending"],
@@ -105,6 +64,10 @@ const softwareSchema = new mongoose.Schema<SoftwareDocument>({
   }
 });
 
-export const Software: mongoose.Model<SoftwareDocument> = mongoose.models.Software || mongoose.model("Software", softwareSchema);
+export interface ParsedSoftware extends Omit<SoftwareDocument, "tags" | "category" | "_id"> {
+  _id: string;
+  tags: string[];
+  category: string;
+}
 
-export const Category: mongoose.Model<CategoryDocument> = mongoose.models.Category || mongoose.model("Category", categorySchema);
+export const Software: mongoose.Model<SoftwareDocument> = mongoose.models.Software || mongoose.model("Software", softwareSchema);

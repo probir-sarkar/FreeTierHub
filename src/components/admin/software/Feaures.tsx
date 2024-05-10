@@ -14,7 +14,7 @@ const SoftwareFeatures: React.FC<SoftwareFeatureProps> = ({ name, label }) => {
     control,
     formState: { errors }
   } = useFormContext();
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name
   });

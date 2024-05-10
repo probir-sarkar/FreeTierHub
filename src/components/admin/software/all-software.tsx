@@ -1,16 +1,7 @@
 "use client";
 import { FC } from "react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { SoftwareDocument } from "@/models/Soft";
+import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ParsedSoftware } from "@/models/Soft";
 
 import AddSoftwareButton from "./AddSofwareButton";
 import { Button } from "@/components/ui/button";
@@ -18,12 +9,12 @@ import { Settings, TrashIcon } from "lucide-react";
 import { useSoftwareStore } from "./software.state";
 
 interface InputProps {
-  softwares: SoftwareDocument[];
+  softwares: ParsedSoftware[];
 }
 
 const AllSoftware: FC<InputProps> = ({ softwares }) => {
   const { setSheetOpen, setEditingSoftware } = useSoftwareStore();
-  if (!softwares || softwares.length < 1) return null;
+
   return (
     <div className="my-10">
       <div className="flex items-center justify-between mb-8">
@@ -45,12 +36,12 @@ const AllSoftware: FC<InputProps> = ({ softwares }) => {
         </TableHeader>
         <TableBody>
           {softwares.map((software) => (
-            <TableRow key={software._id}>
+            <TableRow key={software._id.toString()}>
               <TableCell>{software.name}</TableCell>
               <TableCell>{software.description}</TableCell>
               <TableCell>{software.github}</TableCell>
               <TableCell>{software.website}</TableCell>
-              <TableCell>{software.type}</TableCell>
+              <TableCell>{software.category.toString()}</TableCell>
               <TableCell className="flex gap-1.5">
                 <Button
                   className="h-8 w-8"

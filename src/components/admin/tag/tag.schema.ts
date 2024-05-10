@@ -2,10 +2,9 @@ import z from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export const addCategorySchema = z.object({
+export const addTagSchema = z.object({
   name: z.string().min(3).max(255),
   description: z.string().min(3),
-  subtitle: z.string().min(3),
   slug: z
     .string()
     .min(3)
@@ -16,6 +15,6 @@ export const addCategorySchema = z.object({
     .toLowerCase()
 });
 
-export const resolver = zodResolver(addCategorySchema);
+export const resolver = zodResolver(addTagSchema);
 
-export type CategoryFormData = z.infer<typeof addCategorySchema>;
+export type TagFormData = z.infer<typeof addTagSchema>;

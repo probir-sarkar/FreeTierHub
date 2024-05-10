@@ -1,54 +1,54 @@
 "use client";
 import React, { useEffect } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { addCategory, updateCategory } from "./category.actions";
+import { addTag, updateTag } from "./tag.actions";
 import { Button } from "@/components/ui/button";
 import { ErrorMessage } from "@hookform/error-message";
-import { CategoryFormData, resolver } from "./category.schema";
+import { TagFormData, resolver } from "./tag.schema";
 import { toast } from "sonner";
-import { useCategoryStore } from "./category.state";
+import { useTagStore } from "./tag.state";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
-const AddCategoryForm: React.FC = () => {
-  const { editingCategory, sheetOpen, setSheetOpen, clearEditingCategory } = useCategoryStore();
+const AddTagForm: React.FC = () => {
+  const { editingTag, sheetOpen, setSheetOpen, clearEditingTag } = useTagStore();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<CategoryFormData>({
+  } = useForm<TagFormData>({
     resolver
   });
 
-  const onSubmit: SubmitHandler<CategoryFormData> = async (data) => {
-    const success = editingCategory ? await updateCategory(editingCategory._id, data) : await addCategory(data);
+  const onSubmit: SubmitHandler<TagFormData> = async (data) => {
+    const success = editingTag ? await updateTag(editingTag._id, data) : await addTag(data);
     if (success) {
       reset();
-      toast("Category added or updated successfully");
+      toast("Tag added or updated successfully");
       setSheetOpen(false);
     } else {
-      toast("Failed to add or update category");
+      toast("Failed to add or update tag");
     }
   };
   const onError = (errors: Object) => {
     toast("Form has errors, please check and try again");
   };
   useEffect(() => {
-    if (editingCategory) {
-      console.log("resetting form with editing category");
-      reset(editingCategory);
+    if (editingTag) {
+      console.log("resetting form with editing tag");
+      reset(editingTag);
     } else {
       console.log("resetting form with empty values");
       reset({ name: "", slug: "", description: "" });
     }
-  }, [editingCategory]);
+  }, [editingTag]);
 
   return (
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Add or Update Category</SheetTitle>
-          <SheetDescription>Add or update a category to the list</SheetDescription>
+          <SheetTitle>Add or Update Tag</SheetTitle>
+          <SheetDescription>Add or update a tag to the list</SheetDescription>
         </SheetHeader>
         <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-4">
           <div className="grid gap-1.5">
@@ -62,13 +62,6 @@ const AddCategoryForm: React.FC = () => {
             <input type="text" id="slug" {...register("slug")} />
             <ErrorMessage errors={errors} name="slug" render={({ message }) => <p className="text-destructive text-sm">{message}</p>} />
           </div>
-          {/* subtitle */}
-
-          <div className="grid gap-1.5">
-            <label htmlFor="subtitle">Subtitle:</label>
-            <input type="text" id="subtitle" {...register("subtitle")} />
-            <ErrorMessage errors={errors} name="subtitle" render={({ message }) => <p className="text-destructive text-sm">{message}</p>} />
-          </div>
 
           <div className="grid gap-1.5">
             <label htmlFor="description">Description:</label>
@@ -77,7 +70,7 @@ const AddCategoryForm: React.FC = () => {
           </div>
           {/*  */}
           <Button type="submit" className="w-full " size="lg">
-            {editingCategory ? "Update" : "Add"} Category
+            {editingTag ? "Update" : "Add"} Tag
           </Button>
         </form>
       </SheetContent>
@@ -85,4 +78,4 @@ const AddCategoryForm: React.FC = () => {
   );
 };
 
-export default AddCategoryForm;
+export default AddTagForm;

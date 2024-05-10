@@ -1,16 +1,16 @@
 "use client";
-import { CategoryDocument } from "@/models/Category";
-import { useCategoryStore } from "./category.state";
+import { TagDocument } from "@/models/Tag";
+import { useTagStore } from "./tag.state";
 import { FC } from "react";
 import { Button } from "@/components/ui/button";
-import { Settings, TrashIcon } from "lucide-react";
+import { DeleteIcon, Settings, TrashIcon } from "lucide-react";
 
-interface CategoryCardProps {
-  category: CategoryDocument;
+interface TagCardProps {
+  tag: TagDocument;
 }
 
-const CategoryCard: FC<CategoryCardProps> = ({ category }) => {
-  const { setEditingCategory, setSheetOpen } = useCategoryStore();
+const TagCard: FC<TagCardProps> = ({ tag }) => {
+  const { setEditingTag, setSheetOpen } = useTagStore();
   return (
     <div className="rounded-lg bg-white shadow-lg dark:bg-gray-950">
       <div className="p-6 relative">
@@ -20,7 +20,7 @@ const CategoryCard: FC<CategoryCardProps> = ({ category }) => {
             size="icon"
             variant="outline"
             onClick={() => {
-              setEditingCategory(category);
+              setEditingTag(tag);
               setSheetOpen(true);
             }}
           >
@@ -32,15 +32,15 @@ const CategoryCard: FC<CategoryCardProps> = ({ category }) => {
             <span className="sr-only">Delete</span>
           </Button>
         </div>
-        <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-500 dark:bg-gray-800 dark:text-gray-400">/{category.slug}</span>
+        <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-500 dark:bg-gray-800 dark:text-gray-400">/{tag.slug}</span>
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-bold">{category.name}</h3>
+          <h3 className="text-xl font-bold">{tag.name}</h3>
         </div>
 
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{category.description}</p>
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{tag.description}</p>
       </div>
     </div>
   );
 };
 
-export default CategoryCard;
+export default TagCard;

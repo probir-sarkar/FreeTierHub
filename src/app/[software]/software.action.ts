@@ -1,8 +1,8 @@
 "use server";
-import { CategoryDocument, Software, SoftwareDocument } from "@/models/Soft";
+import { CategoryDocument, Software, ParsedSoftware } from "@/models/Soft";
 import dbConnect from "@/lib/dbConnect";
 
-export interface SoftwareWithCategorized extends Omit<SoftwareDocument, "categories"> {
+export interface SoftwareWithCategorized extends Omit<ParsedSoftware, "categories"> {
   categories: CategoryDocument[];
 }
 

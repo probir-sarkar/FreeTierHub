@@ -1,4 +1,4 @@
-import { Category, CategoryDocument } from "@/models/Soft";
+import { Category, CategoryDocument } from "@/models/Category";
 import dbConnect from "@/lib/dbConnect";
 import CategoryCard from "./categoryCard";
 import AddCategoryButton from "./AddCategoryButton";

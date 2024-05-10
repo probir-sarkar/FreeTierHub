@@ -19,7 +19,7 @@ export const addSoftwareSchema = z.object({
       message: "Slug must be a valid URL slug"
     })
     .toLowerCase(),
-  categories: z
+  tags: z
     .array(
       z.object({
         value: z.string(),
@@ -29,7 +29,7 @@ export const addSoftwareSchema = z.object({
     .nonempty(),
   github: z.string().url().optional().or(z.literal("")),
   website: z.string().url().optional().or(z.literal("")),
-  type: z.enum(CATEGORY_TYPES),
+  category: z.string(),
   creditCardRequired: z.boolean().optional(),
   payModel: z.enum(FREE_MODELS_TYPES)
 });

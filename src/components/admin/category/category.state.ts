@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CategoryDocument } from "@/models/Soft";
+import { CategoryDocument } from "@/models/Category";
 
 interface CategoryStore {
   editingCategory: CategoryDocument | null;
@@ -14,5 +14,5 @@ export const useCategoryStore = create<CategoryStore>((set) => ({
   setEditingCategory: (category) => set({ editingCategory: category }),
   sheetOpen: false,
   setSheetOpen: (open) => set({ sheetOpen: open }),
-  clearEditingCategory: () => set({ editingCategory: null }),
+  clearEditingCategory: () => set({ editingCategory: null })
 }));

@@ -1,11 +1,11 @@
 import { create } from "zustand";
-import { SoftwareDocument } from "@/models/Soft"; // Assuming SoftwareDocument is the appropriate type for software documents
+import { ParsedSoftware } from "@/models/Soft"; // Assuming ParsedSoftware is the appropriate type for software documents
 
 interface SoftwareStore {
-  editingSoftware: SoftwareDocument | null;
+  editingSoftware: ParsedSoftware | null;
   sheetOpen: boolean;
   setSheetOpen: (open: boolean) => void;
-  setEditingSoftware: (software: SoftwareDocument) => void;
+  setEditingSoftware: (software: ParsedSoftware) => void;
   clearEditingSoftware: () => void;
 }
 
@@ -14,5 +14,5 @@ export const useSoftwareStore = create<SoftwareStore>((set) => ({
   setEditingSoftware: (software) => set({ editingSoftware: software }),
   sheetOpen: false,
   setSheetOpen: (open) => set({ sheetOpen: open }),
-  clearEditingSoftware: () => set({ editingSoftware: null }),
+  clearEditingSoftware: () => set({ editingSoftware: null })
 }));

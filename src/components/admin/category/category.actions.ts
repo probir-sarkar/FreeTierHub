@@ -1,7 +1,7 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/dbConnect";
-import { Category } from "@/models/Soft";
+import { Category } from "@/models/Category";
 
 interface CategoryData {
   name: string;

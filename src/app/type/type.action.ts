@@ -1,8 +1,8 @@
 "use server";
-import { Category, Software, SoftwareDocument, CategoryDocument } from "@/models/Soft";
+import { Category, Software, ParsedSoftware, CategoryDocument } from "@/models/Soft";
 import dbConnect from "@/lib/dbConnect";
 
-export interface SoftwareWithCategorized extends Omit<SoftwareDocument, "categories"> {
+export interface SoftwareWithCategorized extends Omit<ParsedSoftware, "categories"> {
   categories: CategoryDocument[];
 }
 export const allSoftwaresByType = async (type: string) => {
