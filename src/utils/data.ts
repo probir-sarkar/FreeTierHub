@@ -90,3 +90,30 @@ export const FREE_MODELS = [
     ]
   }
 ];
+
+export const MENU_ITEMS = [
+  {
+    name: "Home",
+    slug: "/"
+  },
+  {
+    name: "About",
+    slug: "/about"
+  },
+  {
+    name: "Services",
+    slug: "/services"
+  },
+  {
+    name: "Contact",
+    slug: "/contact"
+  },
+  {
+    name: "Blog",
+    slug: "/blog"
+  },
+  {
+    name: "Careers",
+    slug: "/careers"
+  }
+];

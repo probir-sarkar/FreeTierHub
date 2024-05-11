@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 
 import "./globals.css";
+import Header from "@/components/common/Header";
 
 const arimo = Arimo({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={arimo.variable}>
+        <Header />
         <main>{children}</main>
         <Toaster />
       </body>

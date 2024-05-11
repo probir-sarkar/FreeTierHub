@@ -29,6 +29,7 @@ export async function softwareBySlug(slug: string) {
           _id: { $ne: software._id }
         }
       },
+
       {
         $addFields: {
           matchedTags: {
@@ -40,8 +41,28 @@ export async function softwareBySlug(slug: string) {
       },
       {
         $sort: { matchedTags: -1 }
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category"
+        }
+      },
+      {
+        $lookup: {
+          from: "tags",
+          localField: "tags",
+          foreignField: "_id",
+          as: "tags"
+        }
+      },
+      {
+        $limit: 10
       }
     ]);
+
     console.log(relatedSoftwares);
 
     const parseRelatedSoftwares = JSON.parse(JSON.stringify(relatedSoftwares)) as SoftwareWithCategorized[];

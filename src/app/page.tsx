@@ -6,14 +6,15 @@
 import Link from "next/link";
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
 import TierList from "@/components/home/TierList";
+import Image from "next/image";
 
 export default function Component() {
   return (
     <>
-      <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+      <section className="w-full py-12 md:py-24 2xl:py-32 ">
         <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-            <div className="flex flex-col justify-center space-y-4">
+          <div className="flex gap-6 ">
+            <div className="flex flex-col justify-center space-y-4 basis-3/5">
               <div className="space-y-2">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">Discover the Best Free Software Tiers</h1>
                 <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
@@ -30,13 +31,9 @@ export default function Component() {
                 </Link>
               </div>
             </div>
-            <img
-              alt="Hero"
-              className="mx-auto aspect-video overflow-hidden rounded-xl object-bottom sm:w-full lg:order-last lg:aspect-square"
-              height="550"
-              src="/placeholder.svg"
-              width="550"
-            />
+            <div className="basis-2/5">
+              <Image quality={100} alt="Hero" className=" hidden md:block mx-auto h-full w-full  rounded-xl object-cover" height="800" src="/hero.jpg" width="640" />
+            </div>
           </div>
         </div>
       </section>

@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { CardContent, Card } from "@/components/ui/card";
 import Image from "next/image";
 import { softwareBySlug } from "./software.action";
+import SoftwareCard from "@/components/software/SoftwareCard";
+import { GitHubLogoIcon, Link1Icon } from "@radix-ui/react-icons";
 
 const SoftwareDetails = async ({ params }: { params: { software: string } }) => {
   const { software } = params;
@@ -41,7 +43,7 @@ const SoftwareDetails = async ({ params }: { params: { software: string } }) => 
                   href={softwareDetails.github}
                   target="_blank"
                 >
-                  <GithubIcon className="w-5 h-5" />
+                  <GitHubLogoIcon className="w-5 h-5" />
                   GitHub
                 </Link>
               )}
@@ -51,7 +53,7 @@ const SoftwareDetails = async ({ params }: { params: { software: string } }) => 
                   href={softwareDetails.website}
                   target="_blank"
                 >
-                  <GlobeIcon className="w-5 h-5" />
+                  <Link1Icon className="w-5 h-5" />
                   Website
                 </Link>
               )}
@@ -96,70 +98,9 @@ const SoftwareDetails = async ({ params }: { params: { software: string } }) => 
           <div className="space-y-4">
             <h2 className="text-2xl font-bold">Alternative Products</h2>
             <div className="grid md:grid-cols-2 gap-4">
-              <Card>
-                <CardContent className="space-y-2">
-                  <div className="flex items-center gap-4">
-                    <img
-                      alt="Alternative Product Icon"
-                      className="rounded-lg"
-                      height={48}
-                      src="/placeholder.svg"
-                      style={{
-                        aspectRatio: "48/48",
-                        objectFit: "cover"
-                      }}
-                      width={48}
-                    />
-                    <div>
-                      <h3 className="text-lg font-semibold">Acme Toolkit</h3>
-                      <p className="text-gray-500 dark:text-gray-400">A comprehensive suite of business tools</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <StarIcon className="w-5 h-5 fill-primary" />
-                    <StarIcon className="w-5 h-5 fill-primary" />
-                    <StarIcon className="w-5 h-5 fill-primary" />
-                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <Button size="sm">Learn More</Button>
-                    <p className="text-gray-500 dark:text-gray-400">$79/month</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="space-y-2">
-                  <div className="flex items-center gap-4">
-                    <img
-                      alt="Alternative Product Icon"
-                      className="rounded-lg"
-                      height={48}
-                      src="/placeholder.svg"
-                      style={{
-                        aspectRatio: "48/48",
-                        objectFit: "cover"
-                      }}
-                      width={48}
-                    />
-                    <div>
-                      <h3 className="text-lg font-semibold">Acme Insights</h3>
-                      <p className="text-gray-500 dark:text-gray-400">Advanced analytics and reporting</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <StarIcon className="w-5 h-5 fill-primary" />
-                    <StarIcon className="w-5 h-5 fill-primary" />
-                    <StarIcon className="w-5 h-5 fill-primary" />
-                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                    <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <Button size="sm">Learn More</Button>
-                    <p className="text-gray-500 dark:text-gray-400">$99/month</p>
-                  </div>
-                </CardContent>
-              </Card>
+              {relatedSoftwares.map((software) => (
+                <SoftwareCard key={software._id} software={software} />
+              ))}
             </div>
           </div>
         </div>
