@@ -15,6 +15,18 @@ const nextConfig = {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/blog/",
+        destination: "https://demogpt.com/"
+      },
+      {
+        source: "/blog/:path*",
+        destination: "https://demogpt.com/:path*"
+      }
+    ];
   }
 };
 

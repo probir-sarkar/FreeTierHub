@@ -1,6 +1,7 @@
 import { Search, UserIcon } from "lucide-react";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
+import NavUser from "./NavUser";
 
 const Header = () => {
   return (
@@ -29,9 +30,7 @@ const Header = () => {
         <Link className="hover:text-gray-400" href="#">
           <Search className="w-6 h-6" />
         </Link>
-        <Link className="hover:text-gray-400" href="#">
-          <UserIcon className="w-6 h-6" />
-        </Link>
+        <NavUser />
       </div>
     </header>
   );
