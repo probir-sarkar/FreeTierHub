@@ -6,7 +6,7 @@ interface User {
   githubId: string;
   avatarUrl?: string;
   name?: string;
-  role?: RoleType;
+  role: RoleType;
 }
 
 const UserSchema = new mongoose.Schema<User>({

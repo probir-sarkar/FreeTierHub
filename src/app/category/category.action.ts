@@ -1,5 +1,6 @@
 "use server";
-import { Category, Software, ParsedSoftware, CategoryDocument } from "@/models/Soft";
+import { Software, ParsedSoftware } from "@/models/Soft";
+import { Category, CategoryDocument } from "@/models/Category";
 
 import dbConnect from "@/lib/dbConnect";
 

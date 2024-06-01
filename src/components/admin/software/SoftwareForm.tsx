@@ -36,6 +36,7 @@ const SoftwareForm: React.FC<Props> = ({ tags, categories }) => {
     const success = editingSoftware ? await updateSoftware(data, editingSoftware._id) : await addSoftware(data);
     if (success) {
       toast("Software added or updated successfully");
+      reset();
       setSheetOpen(false);
     } else {
       toast("Failed to add or update software");

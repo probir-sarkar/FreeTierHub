@@ -9,6 +9,8 @@ interface Props {
   software: SoftwareWithCategorized;
 }
 export default function SoftwareCard({ software }: Props) {
+  const { tags, category } = software;
+  const allTags = [category.name, ...tags.map((tag) => tag.name)];
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
@@ -29,9 +31,9 @@ export default function SoftwareCard({ software }: Props) {
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="flex flex-wrap items-center gap-2">
-          {software.tags.map((tag) => (
-            <Badge key={tag._id} variant="secondary" className="capitalize">
-              {tag.name}
+          {allTags.map((tag, index) => (
+            <Badge key={index} variant="secondary" className="capitalize">
+              {tag}
             </Badge>
           ))}
         </div>
@@ -40,7 +42,7 @@ export default function SoftwareCard({ software }: Props) {
             <Heart className="w-4 h-4 fill-primary" />
             <span>1.2K</span>
           </div>
-          <Link className="text-sm font-medium text-primary hover:underline" href={software.slug}>
+          <Link className="text-sm font-medium text-primary hover:underline" href={"/" + software.slug}>
             View Product
           </Link>
         </div>

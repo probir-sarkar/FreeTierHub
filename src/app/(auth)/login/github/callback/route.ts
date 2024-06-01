@@ -15,6 +15,8 @@ export async function GET(request: Request): Promise<Response> {
       status: 400
     });
   }
+  const parsedState = JSON.parse(decodeURIComponent(state));
+  const callback = parsedState?.callback ?? "/";
 
   try {
     const tokens = await github.validateAuthorizationCode(code);
@@ -33,7 +35,7 @@ export async function GET(request: Request): Promise<Response> {
       return new Response(null, {
         status: 302,
         headers: {
-          Location: "/"
+          Location: callback
         }
       });
     }
@@ -48,7 +50,7 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/"
+        Location: callback
       }
     });
   } catch (e) {
