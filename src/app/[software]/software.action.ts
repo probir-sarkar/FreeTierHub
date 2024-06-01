@@ -1,7 +1,7 @@
 "use server";
 import { Software, ParsedSoftware } from "@/models/Soft";
-import { TagDocument } from "@/models/Tag";
-import { CategoryDocument } from "@/models/Category";
+import { Tag, TagDocument } from "@/models/Tag";
+import { Category, CategoryDocument } from "@/models/Category";
 
 import dbConnect from "@/lib/dbConnect";
 
@@ -13,7 +13,15 @@ export interface SoftwareWithCategorized extends Omit<ParsedSoftware, "tags" | "
 export async function softwareBySlug(slug: string) {
   try {
     await dbConnect();
-    const software = await Software.findOne({ slug }).populate("tags").populate("category");
+    const software = await Software.findOne({ slug })
+      .populate({
+        path: "tags",
+        model: Tag
+      })
+      .populate({
+        path: "category",
+        model: Category
+      });
     if (!software) {
       throw new Error("Software not found");
     }
