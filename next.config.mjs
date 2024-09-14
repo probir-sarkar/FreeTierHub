@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: "/tier",
-        destination: "/#tier",
+        destination: "/#free-tier",
         permanent: true
       }
     ];

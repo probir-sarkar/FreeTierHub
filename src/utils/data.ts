@@ -97,23 +97,11 @@ export const MENU_ITEMS = [
     slug: "/"
   },
   {
-    name: "About",
-    slug: "/about"
+    name: "Free Tiers",
+    slug: "/#free-tier"
   },
   {
-    name: "Services",
-    slug: "/services"
-  },
-  {
-    name: "Contact",
-    slug: "/contact"
-  },
-  {
-    name: "Blog",
-    slug: "/blog"
-  },
-  {
-    name: "Careers",
-    slug: "/careers"
+    name: "Software Categories",
+    slug: "/category"
   }
 ];

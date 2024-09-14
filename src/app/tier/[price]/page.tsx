@@ -2,20 +2,14 @@ import Link from "next/link";
 import { allSoftwareByPrice } from "./price.action";
 import SoftwareCard from "@/components/software/SoftwareCard";
 import { FREE_MODELS } from "@/utils/data";
+import NotFound from "@/components/common/NotFound";
 
 const PricePage = async ({ params }: { params: { price: string } }) => {
   const { price } = params;
   const allSoftwares = await allSoftwareByPrice(price);
   const model = FREE_MODELS.find((model) => model.slug === price);
   if (!model) {
-    return (
-      <div>
-        <h1>404 - Not Found</h1>
-        <Link href="/">
-          <a>Go back to home</a>
-        </Link>
-      </div>
-    );
+    return <NotFound />;
   }
   return (
     <main className="w-full max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-20">

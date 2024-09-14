@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Arimo } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
+import NextTopLoader from 'nextjs-toploader';
+
 
 import "./globals.css";
 import Header from "@/components/common/Header";
@@ -25,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={arimo.variable}>
+      <NextTopLoader color="#000" />
         <Header />
         <main>{children}</main>
         <Toaster />
